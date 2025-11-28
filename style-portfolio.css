@@ -1,17 +1,46 @@
-/* MEDIA OVERWRITE AND NEW SETTINGS */
-@media screen and (max-width: 950px){
-    .main-title{
+/* MEDIA QUERIES AND RESPONSIVE SETTINGS FOR PORTFOLIO */
+
+/* Below 950px width */
+@media screen and (max-width: 950px) {
+    .main-title {
         text-align: center;
     }
 
-    .max-width{
+    .max-width {
         max-width: 450px;
+        height: auto; /* ensure images scale correctly */
     }
-} 
+}
 
-@media screen and (max-width: 600px){
-    .max-width{
+/* Below 600px width */
+@media screen and (max-width: 600px) {
+    .max-width {
         max-width: 100%;
         height: auto;
+    }
+
+    .grid-system-2 {
+        grid-template-columns: 1fr;
+        gap: 20px; /* optional: add spacing between project sections */
+    }
+
+    .button-outline {
+        font-size: 0.9rem; /* scale buttons for mobile */
+        padding: 8px 16px;
+    }
+}
+
+/* Optional: Below 400px width */
+@media screen and (max-width: 400px) {
+    .main-title {
+        font-size: 1.5rem;
+    }
+
+    .padding-top {
+        padding-top: 10px;
+    }
+
+    .center {
+        text-align: center;
     }
 }
