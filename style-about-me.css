@@ -1,19 +1,62 @@
-/* MEDIA OVERWRITE AND NEW SETTINGS */
+/* BASE STYLES FOR SKILLSET PAGE */
+.skills ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.progress-bar {
+    display: block;
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 5px 0 15px 0;
+    height: 20px;
+}
+
+.progress-bar span {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: 25px;
+    transition: width 1s ease-in-out;
+}
+
+/* example colors for each skill */
+.html { background-color: #f16529; }
+.css { background-color: #2965f1; }
+.javascript { background-color: #f0db4f; }
+.php { background-color: #777bb3; }
+
+.comm-adapt { background-color: #ff7f50; }
+.team-player { background-color: #6a5acd; }
+.problem-solving { background-color: #20b2aa; }
+.open-minded { background-color: #ff69b4; }
+
+/* MEDIA OVERWRITE AND RESPONSIVE SETTINGS */
 @media screen and (max-width: 950px){
     .main-title-large{
         text-align: center;
+        font-size: 2.5rem;
     }
 
     .grid-system-2{
         grid-template-columns: 1fr;
+        gap: 20px;
     }
 
     .grid-system-4{
         grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
     }
 
     .small-card{
         min-height: 300px;
+    }
+
+    .progress-bar {
+        height: 18px;
     }
 }
 
@@ -22,6 +65,7 @@
         max-width: 300px;
     }
 }
+
 @media screen and (max-width: 950px) and (min-width: 377px){
     .main-title-large{
         font-size: 2rem;
@@ -37,5 +81,28 @@
 
     .small-card{
         height: auto;
+    }
+
+    .progress-bar {
+        height: 16px;
+    }
+
+    /* adjust skill labels font size */
+    .skills ul li p {
+        font-size: 0.9rem;
+    }
+}
+
+@media screen and (max-width: 377px){
+    .main-title-large{
+        font-size: 1.8rem;
+    }
+
+    .skills ul li p {
+        font-size: 0.8rem;
+    }
+
+    .progress-bar {
+        height: 14px;
     }
 }
