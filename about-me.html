@@ -1,34 +1,365 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Updated meta tags for your AI portfolio -->
     <meta name="description" content="Ibad Ullah Azam - AI Engineer portfolio showcasing projects in deep learning, generative AI, computer vision, and medical imaging">
     <meta name="keywords" content="AI Engineer, Deep Learning, Generative AI, Computer Vision, Medical Imaging, Portfolio, Python, PyTorch">
     <meta name="author" content="Ibad Ullah Azam">
     <title>About Me - Ibad Ullah Azam</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="style-about-me.css">
-    <!-- font for the quote -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap" rel="stylesheet">
-    <!-- font for the body -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
-    <!-- font for headings -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1a1a2e;
+            --primary-grey: #2d2d44;
+            --accent-blue: #00adb5;
+            --accent-cyan: #00d4ff;
+            --light-grey: #f5f5f5;
+            --text-dark: #1a1a2e;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-grey);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary-dark);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .main-nav {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        .main-nav a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .toggle, #drop {
+            display: none;
+        }
+
+        /* Sections */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Typography */
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 2px;
+        }
+
+        h3 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        strong {
+            color: var(--primary-dark);
+            font-weight: 600;
+        }
+
+        .highlight {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .quote {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--primary-grey);
+            padding: 2rem;
+            background: white;
+            border-left: 4px solid var(--accent-blue);
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .quote:hover {
+            transform: translateX(10px);
+        }
+
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow-hover);
+            border-color: var(--accent-blue);
+        }
+
+        .card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1rem;
+        }
+
+        .card p:first-of-type {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Future Plans Section */
+        .future-plans {
+            background: var(--primary-dark);
+            color: white;
+            padding: 3rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+        }
+
+        .future-plans h3 {
+            color: white;
+        }
+
+        .future-plans ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .future-plans li {
+            padding: 1rem;
+            margin: 1rem 0;
+            background: var(--primary-grey);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-cyan);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .future-plans li:hover {
+            background: #3d3d54;
+            transform: translateX(10px);
+        }
+
+        .future-plans .highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .main-nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: var(--primary-dark);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 1rem;
+            }
+
+            #drop:checked ~ .main-nav {
+                display: flex;
+            }
+
+            .toggle {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                cursor: pointer;
+            }
+
+            .nav-icon,
+            .nav-icon::before,
+            .nav-icon::after {
+                width: 30px;
+                height: 3px;
+                background: white;
+                display: block;
+                transition: 0.3s;
+            }
+
+            .nav-icon::before,
+            .nav-icon::after {
+                content: '';
+                position: absolute;
+            }
+
+            .nav-icon::before {
+                transform: translateY(-8px);
+            }
+
+            .nav-icon::after {
+                transform: translateY(8px);
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .grid-4 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Animation on scroll */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- navigation bar -->
-    <nav class="sticky">
-        <label for="drop" class="toggle" id="main-toggle">
+    <!-- Navigation -->
+    <nav>
+        <label for="drop" class="toggle">
             <span class="nav-icon"></span>
         </label>
         <input type="checkbox" id="drop">
@@ -41,85 +372,100 @@
         </ul>
     </nav>
 
-    <!-- section1 - introduction -->
-    <section class="grid-system-2 w-900 padding">
-        <section class="center align-center">
-            <img class="max-width" src="assets/about-me1.png" alt="picture-of-me">
-        </section>
-        <section class="justify">
-            <h2 class="main-title-large">Who Am I?</h2>
-            <p>I am <strong>Ibad Ullah Azam</strong>, a Master's student in Computer Engineering (AI) at Inje University, South Korea, and a passionate AI Engineer with experience in Deep Learning, NLP, Medical Imaging, and Multi-Agent AI systems.</p>
-            <p>I have contributed to research publications in medical imaging, computer vision, generative AI, and agentic AI, and I enjoy transforming research into practical AI solutions. My work focuses on creating impactful, real-world applications using AI.</p>
-            <p class="quote uppercase center"><span class="colorful-letter">Curiosity drives innovation</span> — I approach every challenge like Frodo Baggins from The Lord of the Rings, drawn toward the fire of discovery.</p>
+    <!-- Introduction Section -->
+    <section class="grid-2 fade-in">
+        <div style="text-align: center;">
+            <img src="assets/about-me1.png" alt="Ibad Ullah Azam">
+        </div>
+        <div>
+            <h2>Who Am I?</h2>
+            <p>I am <strong>Ibad Ullah Azam</strong>, a Master's student in Computer Engineering (AI) at Inje University, South Korea, and a passionate AI Engineer with experience in <span class="highlight">Deep Learning, NLP, Medical Imaging</span>, and <span class="highlight">Multi-Agent AI systems</span>.</p>
+            <p>I have contributed to <strong>9 research publications</strong> in medical imaging, computer vision, generative AI, and agentic AI, transforming research into practical AI solutions that create real-world impact.</p>
+            <p class="quote">
+                <span class="highlight">"Curiosity drives innovation"</span> — I approach every challenge like Frodo Baggins from The Lord of the Rings, drawn toward the fire of discovery.
+            </p>
             <p>I am always exploring new AI techniques, building projects, and mentoring students in deep learning, computer vision, and LLM-based systems.</p>
-        </section>
+        </div>
     </section>
 
-    <!-- section2 - background story -->
-    <section class="grid-system-2 w-900 padding">
-        <section class="justify">
-            <h2 class="main-title-large center">How It All Started...</h2>
-            <p>My journey into AI began during my undergraduate studies in Electrical Engineering, where I developed a passion for analyzing complex systems and building intelligent solutions. This curiosity led me to pursue a Master’s in AI, focusing on deep learning, medical imaging, and multi-agent systems.</p>
-            <p class="italic">- “Turning research into real-world impact.”</p>
-            <p>Through my professional experience as a Junior Data Scientist and Research Assistant, I have gained hands-on expertise in designing AI pipelines, working with MRI and clinical data, and deploying advanced machine learning models for practical applications.</p>
-        </section>
-        <section class="center align-center">
-            <img class="max-width" src="assets/about-me2.png" alt="story-of-myself">
-        </section>
+    <!-- Background Story Section -->
+    <section class="grid-2 fade-in">
+        <div>
+            <h2>How It All Started...</h2>
+            <p>My journey into AI began during my undergraduate studies in <strong>Electrical Engineering</strong>, where I developed a passion for analyzing complex systems and building intelligent solutions. This curiosity led me to pursue a Master's in AI, focusing on deep learning, medical imaging, and multi-agent systems.</p>
+            <p style="font-style: italic; color: var(--accent-blue); font-size: 1.1rem;">— "Turning research into real-world impact."</p>
+            <p>Through my professional experience as a <strong>Junior Data Scientist</strong> and <strong>Research Assistant</strong>, I have gained hands-on expertise in designing AI pipelines, working with MRI and clinical data, and deploying advanced machine learning models for practical applications.</p>
+        </div>
+        <div style="text-align: center;">
+            <img src="assets/about-me2.png" alt="AI Journey">
+        </div>
     </section>
 
-    <!-- section3 - future plans -->
-    <section class="w-900">
-        <section class="baby-pink-light">
-            <h3 class="main-title center">Future Plans</h3>
-            <ul class="justify padding-list-10">
-                <li class="no-padding-list-item">
-                    Continue research in <span class="bold colorful-letter">medical imaging AI</span>, focusing on MRI and BCBM tumor classification.
+    <!-- Future Plans Section -->
+    <section class="fade-in">
+        <div class="future-plans">
+            <h3>Future Plans</h3>
+            <ul>
+                <li>
+                    Continue research in <span class="highlight">medical imaging AI</span>, focusing on MRI and BCBM tumor classification.
                 </li>
-                <li class="no-padding-list-item">
-                    Develop more <span class="bold colorful-letter">generative AI projects</span> including text-to-image models and multi-agent systems.
+                <li>
+                    Develop more <span class="highlight">generative AI projects</span> including text-to-image models and multi-agent systems.
                 </li>
-                <li class="no-padding-list-item">
-                    Mentor students and contribute to <span class="bold uppercase colorful-letter">research publications</span> in AI and deep learning.
+                <li>
+                    Mentor students and contribute to <span class="highlight">research publications</span> in AI and deep learning.
                 </li>
-                <li class="no-padding-list-item">
-                    Expand expertise in <span class="bold">computer vision, radiomics, and multi-agent LLM systems</span> for real-world AI applications.
+                <li>
+                    Expand expertise in <span class="highlight">computer vision, radiomics, and multi-agent LLM systems</span> for real-world AI applications.
                 </li>
             </ul>
-        </section>
+        </div>
     </section>
 
-    <!-- section4 - hobbies -->
-    <section class="margin-trbl10">
-        <section>
-            <h3 class="main-title center padding">Hobbies and Free Time Activities</h3>
-        </section>
-        <section class="grid-system-4 w-900">
-            <section class="card small-card justify">
-                <img class="box margin-auto hobbies" src="assets/dog.png" alt="hobbies1">
-                <p class="bold center">Pet Care</p>
+    <!-- Hobbies Section -->
+    <section class="fade-in">
+        <h3>Hobbies and Free Time Activities</h3>
+        <div class="grid-4">
+            <div class="card">
+                <img src="assets/dog.png" alt="Pet Care">
+                <p>Pet Care</p>
                 <p>I enjoy spending time with my dog, relaxing, and appreciating life outside of coding and research.</p>
-            </section>
-            <section class="card small-card justify">
-                <img class="box margin-auto hobbies" src="assets/board-game.png" alt="hobbies2">
-                <p class="bold center">Strategy Games</p>
+            </div>
+            <div class="card">
+                <img src="assets/board-game.png" alt="Strategy Games">
+                <p>Strategy Games</p>
                 <p>Playing board and strategy games helps me sharpen my analytical and problem-solving skills.</p>
-            </section>
-            <section class="card small-card justify">
-                <img class="box margin-auto hobbies" src="assets/coding.png" alt="hobbies3">
-                <p class="bold center">Coding</p>
+            </div>
+            <div class="card">
+                <img src="assets/coding.png" alt="Coding">
+                <p>Coding</p>
                 <p>I love building AI projects, experimenting with deep learning models, and improving my programming skills.</p>
-            </section>
-            <section class="card small-card justify">
-                <img class="box margin-auto hobbies" src="assets/plot-reading.png" alt="hobbies4">
-                <p class="bold center">Reading & Learning</p>
+            </div>
+            <div class="card">
+                <img src="assets/plot-reading.png" alt="Reading">
+                <p>Reading & Learning</p>
                 <p>I enjoy reading research papers, exploring AI advancements, and staying up-to-date with technology trends.</p>
-            </section>
-        </section>
+            </div>
+        </div>
     </section>
 
-    <!-- footer -->
+    <!-- Footer -->
     <footer>Template by iluskaland — customized by Ibad Ullah Azam</footer>
-</body>
 
+    <script>
+        // Smooth fade-in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => observer.observe(el));
+    </script>
+</body>
 </html>
+
