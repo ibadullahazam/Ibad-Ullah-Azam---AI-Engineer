@@ -1,26 +1,417 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Optimizing Multi-Agent Systems for Real-Time Startup Analysis with LLMs and Vector Databases">
     <meta name="keywords" content="AI, LLM, Multi-Agent System, Vector Database, Real-Time Analysis">
-    <meta name="author" content="Your Name">
-    <title>Project4 - Multi-Agent Systems & LLMs</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="style-project.css">
+    <meta name="author" content="Ibad Ullah Azam">
+    <title>Multi-Agent Systems & LLMs - Ibad Ullah Azam</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1a1a2e;
+            --primary-grey: #2d2d44;
+            --accent-blue: #00adb5;
+            --accent-cyan: #00d4ff;
+            --light-grey: #f5f5f5;
+            --text-dark: #1a1a2e;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-grey);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary-dark);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .main-nav {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        .main-nav a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .toggle, #drop {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-grey));
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--accent-cyan);
+            font-style: italic;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 2px;
+        }
+
+        /* Content Box */
+        .content-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .content-box:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-5px);
+        }
+
+        .content-box p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-box .highlight {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* Tech Grid - 2x2 */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .tech-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .tech-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow-hover);
+            border-color: var(--accent-blue);
+        }
+
+        .tech-card h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .tech-card ul {
+            list-style: none;
+        }
+
+        .tech-card li {
+            color: var(--text-light);
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .tech-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Learning Section */
+        .learning-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-grey));
+            color: white;
+            padding: 4rem;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow-hover);
+            margin: 4rem 0;
+        }
+
+        .learning-section h3 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .learning-section h3::after {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+        }
+
+        .learning-section ul {
+            list-style: none;
+        }
+
+        .learning-section li {
+            padding: 1rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .learning-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .learning-section .highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin: 2rem 0;
+        }
+
+        .back-link::before {
+            content: '←';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        .back-link:hover::before {
+            transform: translateX(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 6rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .content-box {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: var(--primary-dark);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 1rem;
+            }
+
+            #drop:checked ~ .main-nav {
+                display: flex;
+            }
+
+            .toggle {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                cursor: pointer;
+            }
+
+            .nav-icon,
+            .nav-icon::before,
+            .nav-icon::after {
+                width: 30px;
+                height: 3px;
+                background: white;
+                display: block;
+                transition: 0.3s;
+                position: relative;
+            }
+
+            .nav-icon::before,
+            .nav-icon::after {
+                content: '';
+                position: absolute;
+            }
+
+            .nav-icon::before {
+                transform: translateY(-8px);
+            }
+
+            .nav-icon::after {
+                transform: translateY(8px);
+            }
+
+            .hero {
+                padding: 4rem 1rem;
+            }
+
+            .section h3 {
+                font-size: 2rem;
+            }
+
+            .learning-section {
+                padding: 2rem;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+    </style>
 </head>
 
 <body>
-    <!-- navigation bar -->
-    <nav class="sticky">
-        <label for="drop" class="toggle" id="main-toggle">
+    <!-- Navigation -->
+    <nav>
+        <label for="drop" class="toggle">
             <span class="nav-icon"></span>
         </label>
         <input type="checkbox" id="drop">
@@ -33,80 +424,106 @@
         </ul>
     </nav>
 
-    <!-- project name -->
-    <section class="w-900 padding center">
-        <h2 class="medium-spacing-halfsize">Optimizing Multi-Agent Systems</h2>
-        <p class="center italic">Real-Time Startup Analysis with LLMs & Vector Databases</p>
-    </section>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h2>Optimizing Multi-Agent Systems</h2>
+        <p>Real-Time Startup Analysis with LLMs & Vector Databases</p>
+    </div>
 
-    <!-- about this project -->
-    <section class="w-900 padding center">
-        <h3 class="main-title">Project Overview</h3>
-        <section>
-            <p class="justify">This project focuses on developing a **multi-agent system** capable of performing **real-time startup analysis**. By integrating **Large Language Models (LLMs)** with **vector databases**, the system can efficiently process unstructured data, extract insights, and provide actionable recommendations to stakeholders.</p>
-            <p class="justify">The system employs agent-based coordination for task allocation, enabling parallelized processing and intelligent decision-making. <span class="bold">Vector databases ensure fast similarity search and retrieval of relevant information.</span> This allows for near-instantaneous responses when querying complex business datasets.</p>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Project Overview -->
+        <section class="section fade-in">
+            <h3>Project Overview</h3>
+            <div class="content-box">
+                <p>
+                    This project focuses on developing a <span class="highlight">multi-agent system</span> capable of performing <span class="highlight">real-time startup analysis</span>. By integrating <span class="highlight">Large Language Models (LLMs)</span> with <span class="highlight">vector databases</span>, the system can efficiently process unstructured data, extract insights, and provide actionable recommendations to stakeholders.
+                </p>
+                <p>
+                    The system employs agent-based coordination for task allocation, enabling parallelized processing and intelligent decision-making. <span class="highlight">Vector databases ensure fast similarity search and retrieval of relevant information.</span> This allows for near-instantaneous responses when querying complex business datasets.
+                </p>
+            </div>
         </section>
-    </section>
 
-    <!-- techniques used -->
-    <section class="w-900 padding">
-        <h3 class="main-title center">Techniques & Tools</h3>
-        <p class="justify">Here are the main technologies and methods applied in this project:</p>
-    </section>
-    <section class="wrapper">
-        <section class="column card">
-            <p class="bold center">LLM Integration</p>
-            <ul class="no-bullet-list no-padding-list-item">
-                <li><span class="colorful-letter">GPT-4 API for summarization</span></li>
-                <li><span class="colorful-letter">Custom prompt engineering</span></li>
-                <li><span class="colorful-letter">Chain-of-thought reasoning for decision making</span></li>
-            </ul>
+        <!-- Techniques & Tools -->
+        <section class="section fade-in delay-1">
+            <h3>Techniques & Tools</h3>
+            <p style="text-align: center; color: var(--text-light); font-size: 1.1rem; margin-bottom: 2rem;">
+                Here are the main technologies and methods applied in this project:
+            </p>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h4>LLM Integration</h4>
+                    <ul>
+                        <li>GPT-4 API for summarization</li>
+                        <li>Custom prompt engineering</li>
+                        <li>Chain-of-thought reasoning for decision making</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>Vector Database</h4>
+                    <ul>
+                        <li>Pinecone / FAISS</li>
+                        <li>Efficient similarity search</li>
+                        <li>Embedding storage & retrieval</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>Multi-Agent System</h4>
+                    <ul>
+                        <li>Task coordination & prioritization</li>
+                        <li>Real-time data processing</li>
+                        <li>Autonomous decision making</li>
+                    </ul>
+                </div>
+                <div class="tech-card">
+                    <h4>Other Tools</h4>
+                    <ul>
+                        <li>Python & FastAPI backend</li>
+                        <li>Docker for deployment</li>
+                        <li>Plotly & Dash for visualization</li>
+                    </ul>
+                </div>
+            </div>
         </section>
-        <section class="column card">
-            <p class="bold center">Vector Database</p>
-            <ul class="no-bullet-list no-padding-list-item">
-                <li><span class="colorful-letter">Pinecone / FAISS</span></li>
-                <li><span class="colorful-letter">Efficient similarity search</span></li>
-                <li><span class="colorful-letter">Embedding storage & retrieval</span></li>
-            </ul>
-        </section>
-    </section>
-    <section class="wrapper">
-        <section class="column card">
-            <p class="bold center">Multi-Agent System</p>
-            <ul class="no-bullet-list no-padding-list-item">
-                <li><span class="colorful-letter">Task coordination & prioritization</span></li>
-                <li><span class="colorful-letter">Real-time data processing</span></li>
-                <li><span class="colorful-letter">Autonomous decision making</span></li>
-            </ul>
-        </section>
-        <section class="column card">
-            <p class="bold center">Other Tools</p>
-            <ul class="no-bullet-list no-padding-list-item">
-                <li><span class="colorful-letter">Python & FastAPI backend</span></li>
-                <li><span class="colorful-letter">Docker for deployment</span></li>
-                <li><span class="colorful-letter">Plotly & Dash for visualization</span></li>
-            </ul>
-        </section>
-    </section>
 
-    <!-- what did i learn -->
-    <section class="w-900 padding center baby-pink-light">
-        <h3 class="main-title">Key Learnings</h3>
-        <ul class="justify padding-list-10">
-            <li class="no-padding-list-item"><span class="bold">I used this project to learn about multi-agent coordination and real-time data processing.</span></li>
-            <li class="no-padding-list-item">Integrating LLMs with vector databases for fast, accurate retrieval of complex data.</li>
-            <li class="no-padding-list-item">Implementing task allocation and prioritization among multiple agents.</li>
-            <li class="no-padding-list-item">Building a robust backend with Python and containerization with Docker.</li>
-            <li class="no-padding-list-item">Visualization and presentation of complex insights using interactive dashboards.</li>
-            <li class="no-padding-list-item">Optimizing performance and memory usage for real-time analytics.</li>
-        </ul>
-    </section>
+        <!-- What I Learned -->
+        <section class="section fade-in delay-2">
+            <div class="learning-section">
+                <h3>Key Learnings</h3>
+                <ul>
+                    <li><span class="highlight">Multi-agent coordination and real-time data processing</span></li>
+                    <li>Integrating LLMs with vector databases for fast, accurate retrieval of complex data</li>
+                    <li>Implementing task allocation and prioritization among multiple agents</li>
+                    <li>Building a robust backend with Python and containerization with Docker</li>
+                    <li>Visualization and presentation of complex insights using interactive dashboards</li>
+                    <li>Optimizing performance and memory usage for real-time analytics</li>
+                </ul>
+            </div>
+        </section>
 
-    <p class="wrapper justify-content"><a href="portfolio.html" class="link-no-scale colorful-letter">Back to portfolio</a></p>
+        <!-- Back Link -->
+        <div style="text-align: center;">
+            <a href="portfolio.html" class="back-link">Back to Portfolio</a>
+        </div>
+    </div>
 
-    <!-- footer -->
-    <footer>@iluskaland 2024</footer>
+    <!-- Footer -->
+    <footer>Template by iluskaland — customized by Ibad Ullah Azam</footer>
+
+    <script>
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => fadeObserver.observe(el));
+    </script>
 </body>
-
 </html>
