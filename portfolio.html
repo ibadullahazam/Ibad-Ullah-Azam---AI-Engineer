@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,21 +7,414 @@
     <meta name="keywords" content="Ibad Ullah Azam, AI Portfolio, Deep Learning, Generative AI, Medical Imaging, Computer Vision">
     <meta name="author" content="Ibad Ullah Azam">
     <title>Portfolio - Ibad Ullah Azam</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="style-about-me.css">
-    <link rel="stylesheet" type="text/css" href="style-portfolio.css">
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1a1a2e;
+            --primary-grey: #2d2d44;
+            --accent-blue: #00adb5;
+            --accent-cyan: #00d4ff;
+            --light-grey: #f5f5f5;
+            --text-dark: #1a1a2e;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-grey);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary-dark);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .main-nav {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        .main-nav a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .toggle, #drop {
+            display: none;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-grey));
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Project Section */
+        .project-section {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .project-section:nth-child(even) {
+            direction: rtl;
+        }
+
+        .project-section:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .project-content {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-content:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-5px);
+        }
+
+        .project-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .project-content h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 2px;
+        }
+
+        .project-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .project-links {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: var(--light-grey);
+            border-radius: 8px;
+        }
+
+        .project-links span {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .project-links a {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .project-links a::after {
+            content: '→';
+            margin-left: 5px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .project-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .project-links a:hover::after {
+            margin-left: 10px;
+        }
+
+        .button-outline {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            border: 2px solid var(--accent-blue);
+            color: var(--accent-blue);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+        }
+
+        .button-outline:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 173, 181, 0.3);
+        }
+
+        /* Project Image */
+        .project-image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .project-image:hover {
+            transform: scale(1.05);
+            box-shadow: var(--card-shadow-hover);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0, 173, 181, 0.2), rgba(0, 212, 255, 0.2));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 15px;
+            z-index: 1;
+        }
+
+        .project-image:hover::before {
+            opacity: 1;
+        }
+
+        /* Tech Stack Badge */
+        .tech-badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--primary-dark);
+            color: white;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-badges {
+            margin-top: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 6rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .project-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project-section:nth-child(even) {
+                direction: ltr;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .project-content {
+                padding: 2rem;
+            }
+
+            .project-content h3 {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: var(--primary-dark);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 1rem;
+            }
+
+            #drop:checked ~ .main-nav {
+                display: flex;
+            }
+
+            .toggle {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                cursor: pointer;
+            }
+
+            .nav-icon,
+            .nav-icon::before,
+            .nav-icon::after {
+                width: 30px;
+                height: 3px;
+                background: white;
+                display: block;
+                transition: 0.3s;
+                position: relative;
+            }
+
+            .nav-icon::before,
+            .nav-icon::after {
+                content: '';
+                position: absolute;
+            }
+
+            .nav-icon::before {
+                transform: translateY(-8px);
+            }
+
+            .nav-icon::after {
+                transform: translateY(8px);
+            }
+
+            .page-header {
+                padding: 3rem 1rem;
+            }
+
+            .project-links {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+
+        /* Parallax effect */
+        .parallax {
+            transition: transform 0.3s ease;
+        }
+    </style>
 </head>
 
 <body>
-    <!-- navigation bar -->
-    <nav class="sticky">
-        <label for="drop" class="toggle" id="main-toggle">
+    <!-- Navigation -->
+    <nav>
+        <label for="drop" class="toggle">
             <span class="nav-icon"></span>
         </label>
         <input type="checkbox" id="drop">
@@ -35,58 +427,126 @@
         </ul>
     </nav>
 
-    <!-- project 1 -->
-    <section class="grid-system-2 w-900 padding">
-        <section class="justify align-center">
-            <h3 class="main-title padding-top">Adaptive Multi-Pathway Deep Learning Framework</h3>
+    <!-- Page Header -->
+    <div class="page-header">
+        <h1>My Portfolio</h1>
+        <p>Explore my AI and Machine Learning projects spanning computer vision, generative AI, and medical imaging</p>
+    </div>
+
+    <!-- Project 1 -->
+    <section class="project-section fade-in delay-1">
+        <div class="project-content">
+            <h3>Adaptive Multi-Pathway Deep Learning Framework</h3>
             <p>Video-based intrusion detection system leveraging YOLOv11, pose estimation, and I3D CNNs with late fusion for high accuracy.</p>
             <p>This project combines multiple deep learning models to detect suspicious human activities in real-time videos. The system is optimized for speed and accuracy using PyTorch and OpenCV pipelines.</p>
-            <p class="center">Links:
-                <span class="center">
-                    <a class="link colorful-letter" href="https://github.com/ibadullahazam/Suspicious-Activity-Detection" target="_blank">GitHub</a>
-                </span>
-            </p>
-            <p class="padding-top"><a href="project1.html" class="button-outline">More info</a></p>
-        </section>
-        <section class="center">
-            <p><a href="project1.html"><img class="max-width" src="assets/project1.png" alt="Suspicious Activity Detection"></a></p>
-        </section>
+            
+            <div class="tech-badges">
+                <span class="tech-badge">PyTorch</span>
+                <span class="tech-badge">YOLOv11</span>
+                <span class="tech-badge">OpenCV</span>
+                <span class="tech-badge">I3D CNNs</span>
+            </div>
+            
+            <div class="project-links">
+                <span>Links:</span>
+                <a href="https://github.com/ibadullahazam/Suspicious-Activity-Detection" target="_blank">GitHub</a>
+            </div>
+            
+            <a href="project1.html" class="button-outline">More info</a>
+        </div>
+        <div class="project-image parallax">
+            <a href="project1.html">
+                <img src="assets/project1.png" alt="Suspicious Activity Detection">
+            </a>
+        </div>
     </section>
 
-    <!-- project 2 -->
-    <section class="grid-system-2 w-900 padding">
-        <section class="justify align-center">
-            <h3 class="main-title padding-top">Deep Learning Skin Cancer Classification</h3>
+    <!-- Project 2 -->
+    <section class="project-section fade-in delay-2">
+        <div class="project-content">
+            <h3>Deep Learning Skin Cancer Classification</h3>
             <p>Vision Transformer (ViT) model for clinical diagnostics, achieving 97% accuracy on the ISIC 2020 dataset.</p>
             <p>The system uses dermoscopy images to classify skin lesions, helping dermatologists in early detection of skin cancers. Implemented using PyTorch and advanced augmentation techniques.</p>
-            <p class="center">Link:
-                <a class="link colorful-letter" href="https://github.com/ibadullahazam/Skin-Cancer-Classification" target="_blank">GitHub</a>
-            </p>
-            <p class="padding-top"><a href="project2.html" class="button-outline">More info</a></p>
-        </section>
-        <section class="center padding-top align-center">
-            <p><a href="project2.html"><img class="max-width" src="assets/project2.png" alt="Skin Cancer Classification"></a></p>
-        </section>
+            
+            <div class="tech-badges">
+                <span class="tech-badge">Vision Transformer</span>
+                <span class="tech-badge">PyTorch</span>
+                <span class="tech-badge">Medical AI</span>
+                <span class="tech-badge">UNI Foundation</span>
+            </div>
+            
+            <div class="project-links">
+                <span>Link:</span>
+                <a href="https://github.com/ibadullahazam/Skin-Cancer-Classification" target="_blank">GitHub</a>
+            </div>
+            
+            <a href="project2.html" class="button-outline">More info</a>
+        </div>
+        <div class="project-image parallax">
+            <a href="project2.html">
+                <img src="assets/project2.png" alt="Skin Cancer Classification">
+            </a>
+        </div>
     </section>
 
-    <!-- project 3 -->
-    <section class="grid-system-2 w-900 padding">
-        <section class="justify">
-            <h3 class="main-title padding-top">Auto Manga Generation using LLM and Diffusion Models</h3>
+    <!-- Project 3 -->
+    <section class="project-section fade-in delay-3">
+        <div class="project-content">
+            <h3>Auto Manga Generation using LLM and Diffusion Models</h3>
             <p>Generative AI project producing manga-style stories from text prompts using large language models and diffusion-based image synthesis.</p>
             <p>This project explores multi-modal AI, combining text generation with image generation to automate storytelling in manga style. Implemented using PyTorch and Hugging Face Transformers.</p>
-            <p class="center">Link:
-                <span class="bold colorful-letter"><a class="link" href="https://github.com/ibadullahazam/Auto-Manga-Generation" target="_blank">GitHub</a></span>
-            </p>
-            <p class="padding-top"><a href="project3.html" class="button-outline">More info</a></p>
-        </section>
-        <section class="center">
-            <p><a href="project3.html"><img class="max-width" src="assets/project3.png" alt="Auto Manga Generation"></a></p>
-        </section>
+            
+            <div class="tech-badges">
+                <span class="tech-badge">Stable Diffusion</span>
+                <span class="tech-badge">LLMs</span>
+                <span class="tech-badge">Hugging Face</span>
+                <span class="tech-badge">Multi-Agent AI</span>
+            </div>
+            
+            <div class="project-links">
+                <span>Link:</span>
+                <a href="https://github.com/ibadullahazam/Auto-Manga-Generation" target="_blank">GitHub</a>
+            </div>
+            
+            <a href="project3.html" class="button-outline">More info</a>
+        </div>
+        <div class="project-image parallax">
+            <a href="project3.html">
+                <img src="assets/project3.png" alt="Auto Manga Generation">
+            </a>
+        </div>
     </section>
 
-    <!-- footer -->
+    <!-- Footer -->
     <footer>Template by iluskaland — customized by Ibad Ullah Azam</footer>
-</body>
 
+    <script>
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => fadeObserver.observe(el));
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const parallaxElements = document.querySelectorAll('.parallax');
+            parallaxElements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.05;
+                
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    element.style.transform = `translateY(${rate}px)`;
+                }
+            });
+        });
+    </script>
+</body>
 </html>
