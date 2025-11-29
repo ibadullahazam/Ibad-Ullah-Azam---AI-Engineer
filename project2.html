@@ -1,27 +1,474 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Skin Cancer Classification project using deep learning and CNN models for medical imaging.">
     <meta name="keywords" content="Skin Cancer Classification, CNN, Medical Imaging, Deep Learning, Dermatology AI">
     <meta name="author" content="Ibad Ullah Azam">
-    <title>Skin Cancer Classification</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="style-project.css">
-    <!-- Fonts -->
+    <title>Skin Cancer Classification - Ibad Ullah Azam</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Covered+By+Your+Grace&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1a1a2e;
+            --primary-grey: #2d2d44;
+            --accent-blue: #00adb5;
+            --accent-cyan: #00d4ff;
+            --light-grey: #f5f5f5;
+            --text-dark: #1a1a2e;
+            --text-light: #6b7280;
+            --border-color: #e5e7eb;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: var(--light-grey);
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--primary-dark);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .main-nav {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .main-nav a:hover::after {
+            width: 100%;
+        }
+
+        .main-nav a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .toggle, #drop {
+            display: none;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-grey));
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--accent-cyan);
+            font-style: italic;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h3 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+            border-radius: 2px;
+        }
+
+        /* Content Box */
+        .content-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .content-box:hover {
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-5px);
+        }
+
+        .content-box p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .content-box .highlight {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--card-shadow-hover);
+            border-color: var(--accent-blue);
+        }
+
+        .feature-card h4 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .feature-card ul {
+            list-style: none;
+        }
+
+        .feature-card li {
+            color: var(--text-light);
+            padding: 0.8rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .feature-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        /* Key Features List */
+        .features-list {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            margin: 2rem 0;
+        }
+
+        .features-list ul {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .features-list li {
+            padding: 1rem;
+            background: var(--light-grey);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-blue);
+            color: var(--text-dark);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .features-list li:hover {
+            background: white;
+            border-left-color: var(--accent-cyan);
+            transform: translateX(10px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .github-link {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 1rem 2.5rem;
+            background: var(--primary-dark);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .github-link:hover {
+            background: var(--accent-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 173, 181, 0.3);
+        }
+
+        /* Learning Section */
+        .learning-section {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-grey));
+            color: white;
+            padding: 4rem;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow-hover);
+            margin: 4rem 0;
+        }
+
+        .learning-section h3 {
+            color: white;
+            margin-bottom: 2rem;
+        }
+
+        .learning-section h3::after {
+            background: linear-gradient(90deg, var(--accent-cyan), var(--accent-blue));
+        }
+
+        .learning-section ul {
+            list-style: none;
+        }
+
+        .learning-section li {
+            padding: 1rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .learning-section li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-cyan);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .learning-section .highlight {
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Back Link */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            margin: 2rem 0;
+        }
+
+        .back-link::before {
+            content: '←';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: var(--accent-cyan);
+        }
+
+        .back-link:hover::before {
+            transform: translateX(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 6rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-list ul {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .content-box {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-nav {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                background: var(--primary-dark);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                padding: 1rem;
+            }
+
+            #drop:checked ~ .main-nav {
+                display: flex;
+            }
+
+            .toggle {
+                display: block;
+                position: absolute;
+                right: 1rem;
+                top: 1rem;
+                cursor: pointer;
+            }
+
+            .nav-icon,
+            .nav-icon::before,
+            .nav-icon::after {
+                width: 30px;
+                height: 3px;
+                background: white;
+                display: block;
+                transition: 0.3s;
+                position: relative;
+            }
+
+            .nav-icon::before,
+            .nav-icon::after {
+                content: '';
+                position: absolute;
+            }
+
+            .nav-icon::before {
+                transform: translateY(-8px);
+            }
+
+            .nav-icon::after {
+                transform: translateY(8px);
+            }
+
+            .hero {
+                padding: 4rem 1rem;
+            }
+
+            .section h3 {
+                font-size: 2rem;
+            }
+
+            .learning-section {
+                padding: 2rem;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        .delay-4 { animation-delay: 0.8s; }
+    </style>
 </head>
 
 <body>
-    <!-- navigation bar -->
-    <nav class="sticky">
-        <label for="drop" class="toggle" id="main-toggle">
+    <!-- Navigation -->
+    <nav>
+        <label for="drop" class="toggle">
             <span class="nav-icon"></span>
         </label>
         <input type="checkbox" id="drop">
@@ -34,85 +481,119 @@
         </ul>
     </nav>
 
-    <!-- project name -->
-    <section class="w-900 padding center">
-        <h2 class="medium-spacing-halfsize">Skin Cancer Classification</h2>
-        <p class="center italic">Deep Learning for Early Detection of Skin Cancer</p>
-    </section>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h2>Skin Cancer Classification</h2>
+        <p>Deep Learning for Early Detection of Skin Cancer</p>
+    </div>
 
-    <!-- about this project -->
-    <section class="w-900 padding center">
-        <h3 class="main-title">Project Overview</h3>
-        <section>
-            <p class="justify">
-                This project focuses on building an AI model to classify different types of skin cancer from medical images.
-                The system leverages convolutional neural networks (CNNs) for feature extraction and classification.
-                It is designed to assist dermatologists in early detection and improve diagnostic accuracy.
-            </p>
-            <p class="justify">
-                The dataset is preprocessed using augmentation techniques to improve generalization, and the model is trained
-                using <span class="bold">Python, PyTorch, and medical imaging libraries</span>.
-            </p>
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Project Overview -->
+        <section class="section fade-in">
+            <h3>Project Overview</h3>
+            <div class="content-box">
+                <p>
+                    This project focuses on building an AI model to classify different types of skin cancer from medical images.
+                    The system leverages convolutional neural networks (CNNs) for feature extraction and classification.
+                    It is designed to assist dermatologists in early detection and improve diagnostic accuracy.
+                </p>
+                <p>
+                    The dataset is preprocessed using augmentation techniques to improve generalization, and the model is trained
+                    using <span class="highlight">Python, PyTorch, and medical imaging libraries</span>.
+                </p>
+            </div>
         </section>
-    </section>
 
-    <section class="w-900 padding">
-        <h3 class="main-title center">Key Features</h3>
-        <p class="justify">
-            The project includes:
-        </p>
-        <ul class="justify padding-list-10">
-            <li class="no-padding-list-item">Preprocessing and augmentation of skin images</li>
-            <li class="no-padding-list-item">CNN-based classification of multiple skin cancer types</li>
-            <li class="no-padding-list-item">Evaluation using accuracy, precision, recall, and F1-score</li>
-            <li class="no-padding-list-item">Integration of Grad-CAM for visual explanation</li>
-            <li class="no-padding-list-item">Optimized training pipeline with PyTorch</li>
-        </ul>
-        <p class="center">Explore the code on <span class="italic colorful-letter"><a class="link" href="https://github.com/ibadullahazam/Skin-Cancer-Classification" target="_blank">GitHub</a></span>!</p>
-    </section>
-
-    <section class="wrapper">
-        <section class="column card">
-            <p class="bold center">Technologies Used</p>
-            <ul class="no-bullet-list no-padding-list-item">
-                <li><span class="colorful-letter">Python</span></li>
-                <li><span class="colorful-letter">PyTorch</span></li>
-                <li><span class="colorful-letter">OpenCV</span></li>
-                <li><span class="colorful-letter">NumPy</span></li>
-                <li><span class="colorful-letter">CNN Models</span></li>
-                <li><span class="colorful-letter">Grad-CAM Visualization</span></li>
-            </ul>
+        <!-- Key Features -->
+        <section class="section fade-in delay-1">
+            <h3>Key Features</h3>
+            <div class="features-list">
+                <p style="color: var(--text-light); font-size: 1.1rem; margin-bottom: 1rem;">
+                    The project includes:
+                </p>
+                <ul>
+                    <li>Preprocessing and augmentation of skin images</li>
+                    <li>CNN-based classification of multiple skin cancer types</li>
+                    <li>Evaluation using accuracy, precision, recall, and F1-score</li>
+                    <li>Integration of Grad-CAM for visual explanation</li>
+                    <li>Optimized training pipeline with PyTorch</li>
+                </ul>
+                <div style="text-align: center;">
+                    <a href="https://github.com/ibadullahazam/Skin-Cancer-Classification" target="_blank" class="github-link">
+                        Explore on GitHub
+                    </a>
+                </div>
+            </div>
         </section>
-        <section class="column card">
-            <p class="bold center">Project Highlights</p>
-            <ul class="no-bullet-list no-padding-list-item">
-                <li><span class="colorful-letter">High classification accuracy</span></li>
-                <li><span class="colorful-letter">Data augmentation for improved generalization</span></li>
-                <li><span class="colorful-letter">Explainable AI with Grad-CAM</span></li>
-                <li><span class="colorful-letter">End-to-end deep learning pipeline</span></li>
-                <li><span class="colorful-letter">Medical image analysis</span></li>
-            </ul>
+
+        <!-- Technologies and Highlights -->
+        <section class="section fade-in delay-2">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>Technologies Used</h4>
+                    <ul>
+                        <li>Python</li>
+                        <li>PyTorch</li>
+                        <li>OpenCV</li>
+                        <li>NumPy</li>
+                        <li>CNN Models</li>
+                        <li>Grad-CAM Visualization</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>Project Highlights</h4>
+                    <ul>
+                        <li>High classification accuracy</li>
+                        <li>Data augmentation for improved generalization</li>
+                        <li>Explainable AI with Grad-CAM</li>
+                        <li>End-to-end deep learning pipeline</li>
+                        <li>Medical image analysis</li>
+                    </ul>
+                </div>
+            </div>
         </section>
-    </section>
 
-    <!-- what did i learn -->
-    <section class="w-900 padding center baby-pink-light">
-        <h3 class="main-title">What I Learned</h3>
-        <ul class="justify padding-list-10">
-            <li class="no-padding-list-item"><span class="bold">Handling medical imaging datasets</span></li>
-            <li class="no-padding-list-item">Designing and training CNN architectures</li>
-            <li class="no-padding-list-item">Implementing data augmentation strategies</li>
-            <li class="no-padding-list-item">Evaluating model performance using metrics</li>
-            <li class="no-padding-list-item">Using Grad-CAM for model interpretability</li>
-            <li class="no-padding-list-item">Optimizing deep learning pipelines for performance</li>
-            <li class="no-padding-list-item">Deploying AI models for healthcare applications</li>
-        </ul>
-    </section>
+        <!-- What I Learned -->
+        <section class="section fade-in delay-3">
+            <div class="learning-section">
+                <h3>What I Learned</h3>
+                <ul>
+                    <li><span class="highlight">Handling medical imaging datasets</span></li>
+                    <li>Designing and training CNN architectures</li>
+                    <li>Implementing data augmentation strategies</li>
+                    <li>Evaluating model performance using metrics</li>
+                    <li>Using Grad-CAM for model interpretability</li>
+                    <li>Optimizing deep learning pipelines for performance</li>
+                    <li>Deploying AI models for healthcare applications</li>
+                </ul>
+            </div>
+        </section>
 
-    <p class="wrapper justify-content"><a href="portfolio.html" class="link-no-scale colorful-letter">Back to portfolio</a></p>
+        <!-- Back Link -->
+        <div style="text-align: center;">
+            <a href="portfolio.html" class="back-link">Back to Portfolio</a>
+        </div>
+    </div>
 
-    <!-- footer -->
-    <footer>@iluskaland 2024</footer>
+    <!-- Footer -->
+    <footer>Template by iluskaland — customized by Ibad Ullah Azam</footer>
+
+    <script>
+        // Fade in animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        fadeElements.forEach(el => fadeObserver.observe(el));
+    </script>
 </body>
-
 </html>
+</html>
+
