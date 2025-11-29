@@ -1,520 +1,90 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Skillset of Ibad Ullah Azam - AI, Machine Learning, Data Science, Medical Imaging">
-    <meta name="keywords" content="AI, Machine Learning, Data Science, Medical Imaging, Python, NLP, Deep Learning">
-    <meta name="author" content="Ibad Ullah Azam">
-    <title>Skillset - Ibad Ullah Azam</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-dark: #1a1a2e;
-            --primary-grey: #2d2d44;
-            --accent-blue: #00adb5;
-            --accent-cyan: #00d4ff;
-            --light-grey: #f5f5f5;
-            --text-dark: #1a1a2e;
-            --text-light: #6b7280;
-            --border-color: #e5e7eb;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background: var(--light-grey);
-        }
-
-        /* Navigation */
-        nav {
-            background: var(--primary-dark);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .main-nav {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .main-nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 0;
-        }
-
-        .main-nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent-cyan);
-            transition: width 0.3s ease;
-        }
-
-        .main-nav a:hover::after {
-            width: 100%;
-        }
-
-        .main-nav a:hover {
-            color: var(--accent-cyan);
-        }
-
-        .toggle, #drop {
-            display: none;
-        }
-
-        /* Page Header */
-        .page-header {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-grey));
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .page-header h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .page-header p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem 4rem 2rem;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
-        }
-
-        .skill-section {
-            background: white;
-            padding: 3rem;
-            border-radius: 15px;
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-            border: 1px solid var(--border-color);
-        }
-
-        .skill-section:hover {
-            box-shadow: var(--card-shadow-hover);
-            transform: translateY(-5px);
-        }
-
-        .skill-section h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary-dark);
-            margin-bottom: 2rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .skill-section h3::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
-            border-radius: 2px;
-        }
-
-        .skill-section p {
-            color: var(--text-light);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-
-        /* Progress Bars */
-        .skills-list {
-            list-style: none;
-        }
-
-        .skills-list li {
-            margin-bottom: 2rem;
-        }
-
-        .skills-list li p {
-            color: var(--text-dark);
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .progress-bar {
-            display: block;
-            width: 100%;
-            height: 12px;
-            background: #e5e7eb;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .progress-bar span {
-            display: block;
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
-            border-radius: 10px;
-            transition: width 1.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .progress-bar span::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            animation: shimmer 2s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(100%); }
-        }
-
-        /* Skill percentages */
-        .python { width: 95%; }
-        .ml-dl { width: 93%; }
-        .nlp { width: 88%; }
-        .medical-imaging { width: 90%; }
-        .diffusion-ai { width: 87%; }
-        .sql { width: 85%; }
-        .git { width: 92%; }
-        .comm-adapt { width: 90%; }
-        .team-player { width: 92%; }
-        .problem-solving { width: 94%; }
-        .open-minded { width: 91%; }
-
-        /* Future Plans Section */
-        .future-section {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary-grey));
-            color: white;
-            padding: 4rem;
-            border-radius: 15px;
-            box-shadow: var(--card-shadow-hover);
-            margin-top: 4rem;
-        }
-
-        .future-section h3 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .future-section p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary-dark);
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 6rem;
-        }
-
-        /* Responsive */
-        @media (max-width: 968px) {
-            .skills-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .page-header h1 {
-                font-size: 2rem;
-            }
-
-            .skill-section {
-                padding: 2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .main-nav {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background: var(--primary-dark);
-                position: absolute;
-                top: 100%;
-                left: 0;
-                padding: 1rem;
-            }
-
-            #drop:checked ~ .main-nav {
-                display: flex;
-            }
-
-            .toggle {
-                display: block;
-                position: absolute;
-                right: 1rem;
-                top: 1rem;
-                cursor: pointer;
-            }
-
-            .nav-icon,
-            .nav-icon::before,
-            .nav-icon::after {
-                width: 30px;
-                height: 3px;
-                background: white;
-                display: block;
-                transition: 0.3s;
-                position: relative;
-            }
-
-            .nav-icon::before,
-            .nav-icon::after {
-                content: '';
-                position: absolute;
-            }
-
-            .nav-icon::before {
-                transform: translateY(-8px);
-            }
-
-            .nav-icon::after {
-                transform: translateY(8px);
-            }
-
-            .page-header {
-                padding: 3rem 1rem;
-            }
-
-            .future-section {
-                padding: 2rem;
-            }
-        }
-
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Fade in animation */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .delay-1 { animation-delay: 0.2s; }
-        .delay-2 { animation-delay: 0.4s; }
-        .delay-3 { animation-delay: 0.6s; }
-    </style>
-</head>
-
-<body>
-    <!-- Navigation -->
-    <nav>
-        <label for="drop" class="toggle">
-            <span class="nav-icon"></span>
-        </label>
-        <input type="checkbox" id="drop">
-        <ul class="main-nav">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about-me.html">About me</a></li>
-            <li><a href="skill-set.html">Skill-set</a></li>
-            <li><a href="portfolio.html">Portfolio</a></li>
-            <li><a href="index.html#contact-me">Contact me</a></li>
-        </ul>
-    </nav>
-
-    <!-- Page Header -->
-    <div class="page-header">
-        <h1>Technical Skills</h1>
-        <p>Expertise in AI, Machine Learning, and Medical Imaging</p>
-    </div>
-
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Technical Skills Grid -->
-        <div class="skills-grid fade-in">
-            <div class="skill-section">
-                <h3>Programming & Tools</h3>
-                <ul class="skills-list">
-                    <li>
-                        <p>Python</p>
-                        <span class="progress-bar"><span class="python"></span></span>
-                    </li>
-                    <li>
-                        <p>Machine Learning & Deep Learning</p>
-                        <span class="progress-bar"><span class="ml-dl"></span></span>
-                    </li>
-                    <li>
-                        <p>Natural Language Processing (NLP)</p>
-                        <span class="progress-bar"><span class="nlp"></span></span>
-                    </li>
-                    <li>
-                        <p>Medical Imaging (MRI, Skin Cancer Analysis)</p>
-                        <span class="progress-bar"><span class="medical-imaging"></span></span>
-                    </li>
-                    <li>
-                        <p>Agentic AI & Diffusion Models</p>
-                        <span class="progress-bar"><span class="diffusion-ai"></span></span>
-                    </li>
-                    <li>
-                        <p>SQL, Pandas, NumPy</p>
-                        <span class="progress-bar"><span class="sql"></span></span>
-                    </li>
-                    <li>
-                        <p>Git & GitHub</p>
-                        <span class="progress-bar"><span class="git"></span></span>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="skill-section">
-                <h3>Other Technical Skills</h3>
-                <p>Experience with data preprocessing, feature engineering, and building end-to-end machine learning pipelines. Skilled in using vector databases for AI systems and optimizing multi-agent frameworks for real-time analysis. Familiar with deploying AI models and interactive dashboards.</p>
-                <p>Proficient in analyzing complex datasets, visualization, and integrating large language models (LLMs) in practical applications.</p>
-            </div>
-        </div>
-
-        <!-- Soft Skills Grid -->
-        <div class="skills-grid fade-in delay-1">
-            <div class="skill-section">
-                <h3>Soft Skills</h3>
-                <p>Strong communication skills to convey technical insights clearly to diverse teams and stakeholders.</p>
-                <p>Team player with adaptability to collaborate across interdisciplinary projects, especially in AI and medical research.</p>
-                <p>Problem-solving mindset, able to tackle research challenges, optimize workflows, and implement AI solutions effectively.</p>
-            </div>
-
-            <div class="skill-section">
-                <h3>Soft Skills Progress</h3>
-                <ul class="skills-list">
-                    <li>
-                        <p>Communication</p>
-                        <span class="progress-bar"><span class="comm-adapt"></span></span>
-                    </li>
-                    <li>
-                        <p>Teamwork & Adaptability</p>
-                        <span class="progress-bar"><span class="team-player"></span></span>
-                    </li>
-                    <li>
-                        <p>Problem Solving</p>
-                        <span class="progress-bar"><span class="problem-solving"></span></span>
-                    </li>
-                    <li>
-                        <p>Open-mindedness & Research Thinking</p>
-                        <span class="progress-bar"><span class="open-minded"></span></span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Future Plans Section -->
-        <div class="future-section fade-in delay-2">
-            <h3>Future Plans in Skill Development</h3>
-            <p>Continuously improving my AI and machine learning knowledge by exploring advanced architectures, LLM applications, and generative AI techniques. Planning to work on more real-world multi-agent AI projects for real-time analysis and autonomous decision-making.</p>
-            <p>Enhancing expertise in medical imaging AI pipelines, including preprocessing, augmentation, and predictive modeling for diagnostic assistance.</p>
-            <p>Expanding skillset in cloud deployment, scalable AI pipelines, and vector database optimization to strengthen full-stack AI capabilities.</p>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>Template by iluskaland — customized by Ibad Ullah Azam</footer>
-
-    <script>
-        // Animate progress bars on scroll
-        const progressBars = document.querySelectorAll('.progress-bar span');
-        const observerOptions = {
-            threshold: 0.5,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const progressObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const bar = entry.target;
-                    if (bar.classList.contains('python')) bar.style.width = '95%';
-                    else if (bar.classList.contains('ml-dl')) bar.style.width = '93%';
-                    else if (bar.classList.contains('nlp')) bar.style.width = '88%';
-                    else if (bar.classList.contains('medical-imaging')) bar.style.width = '90%';
-                    else if (bar.classList.contains('diffusion-ai')) bar.style.width = '87%';
-                    else if (bar.classList.contains('sql')) bar.style.width = '85%';
-                    else if (bar.classList.contains('git')) bar.style.width = '92%';
-                    else if (bar.classList.contains('comm-adapt')) bar.style.width = '90%';
-                    else if (bar.classList.contains('team-player')) bar.style.width = '92%';
-                    else if (bar.classList.contains('problem-solving')) bar.style.width = '94%';
-                    else if (bar.classList.contains('open-minded')) bar.style.width = '91%';
-                }
-            });
-        }, observerOptions);
-
-        progressBars.forEach(bar => progressObserver.observe(bar));
-
-        // Fade in animations
-        const fadeElements = document.querySelectorAll('.fade-in');
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, { threshold: 0.1 });
-
-        fadeElements.forEach(el => fadeObserver.observe(el));
-    </script>
-</body>
-</html>
+/* BASE STYLES FOR SKILLSET PAGE */
+.skills ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.progress-bar {
+    display: block;
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 25px;
+    overflow: hidden;
+    margin: 5px 0 15px 0;
+    height: 20px;
+}
+.progress-bar span {
+    display: block;
+    height: 100%;
+    width: 0;
+    border-radius: 25px;
+    transition: width 1s ease-in-out;
+}
+/* example colors for each skill */
+.html { background-color: #f16529; }
+.css { background-color: #2965f1; }
+.javascript { background-color: #f0db4f; }
+.php { background-color: #777bb3; }
+.comm-adapt { background-color: #ff7f50; }
+.team-player { background-color: #6a5acd; }
+.problem-solving { background-color: #20b2aa; }
+.open-minded { background-color: #ff69b4; }
+/* MEDIA OVERWRITE AND RESPONSIVE SETTINGS */
+@media screen and (max-width: 950px){
+    .main-title-large{
+        text-align: center;
+        font-size: 2.5rem;
+    }
+    .grid-system-2{
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    .grid-system-4{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+    .small-card{
+        min-height: 300px;
+    }
+    .progress-bar {
+        height: 18px;
+    }
+}
+@media screen and (max-width: 950px) and (min-width: 510px){
+    .max-width{
+        max-width: 300px;
+    }
+}
+@media screen and (max-width: 950px) and (min-width: 377px){
+    .main-title-large{
+        font-size: 2rem;
+        text-align: center;  
+        margin: 0;
+    }
+}
+@media screen and (max-width: 600px){
+    .grid-system-4{
+        grid-template-columns: 1fr;
+    }
+    .small-card{
+        height: auto;
+    }
+    .progress-bar {
+        height: 16px;
+    }
+    /* adjust skill labels font size */
+    .skills ul li p {
+        font-size: 0.9rem;
+    }
+}
+@media screen and (max-width: 377px){
+    .main-title-large{
+        font-size: 1.8rem;
+    }
+    .skills ul li p {
+        font-size: 0.8rem;
+    }
+    .progress-bar {
+        height: 14px;
+    }
+}
