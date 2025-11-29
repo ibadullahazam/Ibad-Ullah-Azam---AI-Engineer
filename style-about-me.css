@@ -1,90 +1,343 @@
+/* ============================================
+   PROFESSIONAL GREY THEME - style-about-me.css
+   Modern AI Engineer Portfolio Styles
+   ============================================ */
+
+:root {
+    --primary-dark: #1a1a2e;
+    --primary-grey: #2d2d44;
+    --accent-blue: #00adb5;
+    --accent-cyan: #00d4ff;
+    --light-grey: #f5f5f5;
+    --text-dark: #1a1a2e;
+    --text-light: #6b7280;
+    --border-color: #e5e7eb;
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --card-shadow-hover: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
 /* BASE STYLES FOR SKILLSET PAGE */
 .skills ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
+
+/* MODERN PROGRESS BAR STYLES */
 .progress-bar {
     display: block;
     width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 25px;
+    background-color: #e5e7eb;
+    border-radius: 10px;
     overflow: hidden;
-    margin: 5px 0 15px 0;
-    height: 20px;
+    margin: 8px 0 20px 0;
+    height: 12px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+
 .progress-bar span {
     display: block;
     height: 100%;
     width: 0;
-    border-radius: 25px;
-    transition: width 1s ease-in-out;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+    transition: width 1.5s ease-in-out;
+    position: relative;
+    overflow: hidden;
 }
-/* example colors for each skill */
-.html { background-color: #f16529; }
-.css { background-color: #2965f1; }
-.javascript { background-color: #f0db4f; }
-.php { background-color: #777bb3; }
-.comm-adapt { background-color: #ff7f50; }
-.team-player { background-color: #6a5acd; }
-.problem-solving { background-color: #20b2aa; }
-.open-minded { background-color: #ff69b4; }
-/* MEDIA OVERWRITE AND RESPONSIVE SETTINGS */
-@media screen and (max-width: 950px){
-    .main-title-large{
+
+/* Shimmer effect on progress bars */
+.progress-bar span::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Professional skill colors - all using gradient theme */
+.html, .css, .javascript, .php,
+.python, .ml-dl, .nlp, .medical-imaging,
+.diffusion-ai, .sql, .git,
+.comm-adapt, .team-player, 
+.problem-solving, .open-minded {
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+}
+
+/* Hover effect for skill items */
+.skills ul li {
+    transition: transform 0.3s ease;
+    padding: 0.5rem 0;
+}
+
+.skills ul li:hover {
+    transform: translateX(5px);
+}
+
+.skills ul li p {
+    color: var(--text-dark);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Card styles */
+.card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--card-shadow-hover);
+    border-color: var(--accent-blue);
+}
+
+.small-card {
+    min-height: 350px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main title styles */
+.main-title-large {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.main-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+.main-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-cyan));
+    border-radius: 2px;
+}
+
+/* Grid systems */
+.grid-system-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4rem;
+    align-items: start;
+}
+
+.grid-system-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+/* Image hover effects */
+.max-width {
+    max-width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+}
+
+.max-width:hover {
+    transform: scale(1.05);
+    box-shadow: var(--card-shadow-hover);
+}
+
+/* Hobbies images */
+.hobbies {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+}
+
+/* MEDIA QUERIES - RESPONSIVE DESIGN */
+
+/* Tablets and smaller laptops (768px - 950px) */
+@media screen and (max-width: 950px) {
+    .main-title-large {
         text-align: center;
         font-size: 2.5rem;
     }
-    .grid-system-2{
+    
+    .grid-system-2 {
         grid-template-columns: 1fr;
-        gap: 20px;
+        gap: 2rem;
     }
-    .grid-system-4{
+    
+    .grid-system-4 {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+        gap: 2rem;
     }
-    .small-card{
+    
+    .small-card {
         min-height: 300px;
     }
+    
     .progress-bar {
-        height: 18px;
+        height: 10px;
     }
 }
-@media screen and (max-width: 950px) and (min-width: 510px){
-    .max-width{
-        max-width: 300px;
+
+/* Medium tablets (510px - 950px) */
+@media screen and (max-width: 950px) and (min-width: 510px) {
+    .max-width {
+        max-width: 350px;
     }
 }
-@media screen and (max-width: 950px) and (min-width: 377px){
-    .main-title-large{
+
+/* Small tablets (377px - 950px) */
+@media screen and (max-width: 950px) and (min-width: 377px) {
+    .main-title-large {
         font-size: 2rem;
         text-align: center;  
-        margin: 0;
+        margin: 0 0 1.5rem 0;
     }
 }
-@media screen and (max-width: 600px){
-    .grid-system-4{
+
+/* Mobile landscape and small tablets (600px) */
+@media screen and (max-width: 600px) {
+    .grid-system-4 {
         grid-template-columns: 1fr;
     }
-    .small-card{
+    
+    .small-card {
         height: auto;
+        min-height: 280px;
     }
+    
     .progress-bar {
-        height: 16px;
+        height: 10px;
     }
-    /* adjust skill labels font size */
+    
     .skills ul li p {
-        font-size: 0.9rem;
+        font-size: 0.95rem;
+    }
+
+    .main-title {
+        font-size: 1.5rem;
     }
 }
-@media screen and (max-width: 377px){
-    .main-title-large{
+
+/* Small mobile devices (377px and below) */
+@media screen and (max-width: 377px) {
+    .main-title-large {
         font-size: 1.8rem;
     }
+    
+    .skills ul li p {
+        font-size: 0.85rem;
+    }
+    
+    .progress-bar {
+        height: 8px;
+    }
+
+    .main-title {
+        font-size: 1.3rem;
+    }
+
+    .hobbies {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 320px) {
+    .main-title-large {
+        font-size: 1.5rem;
+    }
+    
+    .progress-bar {
+        height: 6px;
+    }
+
     .skills ul li p {
         font-size: 0.8rem;
     }
-    .progress-bar {
-        height: 14px;
+}
+
+/* Smooth animations */
+* {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fade in animation utility */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Utility classes for spacing */
+.padding {
+    padding: 2rem;
+}
+
+.padding-top {
+    padding-top: 1.5rem;
+}
+
+.padding-bottom {
+    padding-bottom: 1.5rem;
+}
+
+.margin-auto {
+    margin: 0 auto;
+}
+
+/* Text utilities */
+.center {
+    text-align: center;
+}
+
+.justify {
+    text-align: justify;
+}
+
+.bold {
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
